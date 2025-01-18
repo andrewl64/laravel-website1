@@ -1,6 +1,12 @@
 @extends('admin.admin_master')
 @section('admin')
 
+@if(app('request')->input('via'))
+    @push('toastify-css')
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    @endpush
+@endif
+
 <div class="page-content">
     <div class="container-fluid">
         
@@ -249,4 +255,27 @@
     </div>
     
 </div>
+
+@if(app('request')->input('via'))
+    @push('toastify-scripts')
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script>
+
+            Toastify({
+            text: "You have logged out successfully",
+            duration: 2000,
+            close: false,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: false,
+            style: {
+                background: "rgb(49, 102, 55)",
+                color: "#FFF",
+            },
+            onClick: function(){} //
+            }).showToast();
+        </script>
+    @endpush
+@endif
+
 @endsection

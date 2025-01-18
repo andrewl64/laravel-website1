@@ -13,6 +13,8 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin/profile', 'profile')->name('admin.profile');
     Route::get('/edit/profile', 'edit_profile')->name('edit.profile');
     Route::post('/store/profile', 'store_profile')->name('store.profile');
+    Route::get('/change/password', 'change_password')->name('change.password');
+    Route::post('/update/password', 'update_password')->name('update.password');
 });
 
 Route::get('/dashboard', function () {

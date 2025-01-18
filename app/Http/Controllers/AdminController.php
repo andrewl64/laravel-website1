@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AdminController extends Controller
@@ -18,13 +19,9 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        $notification = array(
-            'message' => 'Logged out successfully.',
-            'alert-type' => 'success'
-        );
-
-        return redirect('/login')->with($notification);
+        return redirect('/login?via=logout');
     }
+
     public function profile(Request $request): View
     {
         $id = Auth::user()->id;
@@ -32,6 +29,7 @@ class AdminController extends Controller
 
         return view('admin.admin_profile_view', compact('adminData'));
     }
+
     public function edit_profile(): View
     {
         $id = Auth::user()->id;
@@ -39,6 +37,7 @@ class AdminController extends Controller
 
         return view('admin.admin_profile_edit', compact('editData'));
     }
+
     public function store_profile(Request $request): RedirectResponse
     {
         $id = Auth::user()->id;
@@ -63,5 +62,33 @@ class AdminController extends Controller
 
         return redirect()->route('admin.profile')->with($notification);
 
+    }
+
+    public function change_password(): View
+    {
+        return view('admin.admin_change_password');
+    }
+
+    public function update_password(Request $request): RedirectResponse
+    {
+        $validateData = $request->validate([
+            'old_pass' => 'required',
+            'new_pass' => 'required',
+            'confirm_pass' => 'required|same:new_pass',
+        ]);
+
+        $hashed_pass = Auth::user()->password;
+        if(Hash::check($request->old_pass,$hashed_pass)){
+            $users = User::find(Auth::id());
+            $users->password = bcrypt($request->new_pass);
+            $users->save();
+
+            session()->flash('message', 'Password updated successfully.');
+
+            return redirect()->back();
+        } else {
+            session()->flash('message', 'Old password is invalid.');
+            return redirect()->back();
+        }
     }
 }
