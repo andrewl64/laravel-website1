@@ -2,6 +2,10 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    @push('toastify-css')
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    @endpush
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -44,4 +48,23 @@
             </x-primary-button>
         </div>
     </form>
+    @push('toastify-scripts')
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script>
+            Toastify({
+            text: "This is a toast",
+            duration: 2000,
+            close: false,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: false,
+            style: {
+                background: "rgb(14, 147, 29)",
+                color: "#FFF",
+            },
+            onClick: function(){} // Callback after click
+            }).showToast();
+        </script>
+    @endpush
+
 </x-guest-layout>
