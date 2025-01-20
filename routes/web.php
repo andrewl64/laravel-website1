@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Home\HomeSliderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 });
 
 Route::controller(AdminController::class)->group(function () {
@@ -15,6 +16,11 @@ Route::controller(AdminController::class)->group(function () {
     Route::post('/store/profile', 'store_profile')->name('store.profile');
     Route::get('/change/password', 'change_password')->name('change.password');
     Route::post('/update/password', 'update_password')->name('update.password');
+});
+
+Route::controller(HomeSliderController::class)->group(function () {
+    Route::get('/home/slider','home_slider')->name('home.slide');
+    Route::post('/update/slider','update_slider')->name('update.slider');
 });
 
 Route::get('/dashboard', function () {

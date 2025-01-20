@@ -14,9 +14,9 @@
             </li>
 
             <li>
-                <a href="calendar.html" class=" waves-effect">
+                <a href="{{ route('home.slide') }}" class=" waves-effect">
                     <i class="ri-calendar-2-line"></i>
-                    <span>Calendar</span>
+                    <span>Home Slider Setup</span>
                 </a>
             </li>
 
