@@ -15,7 +15,7 @@ class HomeSliderController extends Controller
     {
         $homeslider = HomeSlider::find(1);
 
-        return view('admin.home_slider.home_slider_all', compact('homeslider'));
+        return view('admin.home.banner', compact('homeslider'));
     }
     public function update_slider(Request $request): RedirectResponse
     {
