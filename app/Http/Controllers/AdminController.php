@@ -8,7 +8,7 @@ use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\About;
 use App\Models\MultiImgAbout;
@@ -17,7 +17,9 @@ class AdminController extends Controller
 {
     public function load_dashboard(): View
     {
-        return view('admin.index');
+        $id = Auth::user()->id;
+        $adminData = User::find($id);
+        return view('admin.index', compact('adminData'));
     }
 
     public function destroy(Request $request): RedirectResponse
@@ -168,15 +170,19 @@ class AdminController extends Controller
     }
     public function edit_about():View
     {
+        $id = Auth::user()->id;
+        $adminData = User::find($id);
         $about_dat = About::find(1);
         $multi_img_dat = MultiImgAbout::all();
 
-        return view('admin.home.about', compact(['about_dat','multi_img_dat']));
+        return view('admin.home.about', compact(['about_dat','multi_img_dat','adminData']));
     }
     public function edit_multi_img($id): View
     {
         $img = MultiImgAbout::findOrFail($id);
-        return view('admin.edit_multi_img', compact('img'));
+        $uid = Auth::user()->id;
+        $adminData = User::find($uid);
+        return view('admin.edit_multi_img', compact('img', 'adminData'));
     }
     public function update_multi_img(Request $request): RedirectResponse
     {
@@ -191,8 +197,8 @@ class AdminController extends Controller
             'multi_img' => $save_url,
         ]);
 
-        if(File::exists(public_path($old_img))) {
-            File::delete(public_path($old_img));
+        if(Storage::exists(public_path($old_img))) {
+            Storage::delete(public_path($old_img));
         }
 
         $notification = array(
@@ -203,8 +209,22 @@ class AdminController extends Controller
         return redirect()->route('edit.about')->with($notification);
 
     }
-    public function delete_multi_img()
+    public function delete_multi_img($id): RedirectResponse
     {
+        $old_img = MultiImgAbout::find($id)->multi_img;
+
+        if(Storage::exists($old_img)) {
+            Storage::delete($old_img);
+        }
         
+        MultiImgAbout::destroy($id);
+
+        $notification = array(
+            'message' => 'Image deleted successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
     }
 }
