@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\About;
 use App\Models\MultiImgAbout;
+use App\Models\Portfolio;
 
 class AdminController extends Controller
 {
@@ -130,8 +132,13 @@ class AdminController extends Controller
             $img = $request->file('image');
             $name_gen = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
 
-            Image::read($request->file('image'))->resize(636,852)->save('upload/about/'.$name_gen);
+            Image::read($img)->resize(636,852)->save('upload/about/'.$name_gen);
             $save_url = 'upload/about/'.$name_gen;
+
+            $old_img = About::findOrFail($id)->about_img;
+            if(Storage::disk('root_public')->exists($old_img)) {
+                Storage::disk('root_public')->delete($old_img);
+            }
 
             About::findorFail($id)->update([
                 'title' => $request->title,
@@ -197,8 +204,8 @@ class AdminController extends Controller
             'multi_img' => $save_url,
         ]);
 
-        if(Storage::exists(public_path($old_img))) {
-            Storage::delete(public_path($old_img));
+        if(Storage::disk('root_public')->exists(public_path($old_img))) {
+            Storage::disk('root_public')->delete(public_path($old_img));
         }
 
         $notification = array(
@@ -213,8 +220,8 @@ class AdminController extends Controller
     {
         $old_img = MultiImgAbout::find($id)->multi_img;
 
-        if(Storage::exists($old_img)) {
-            Storage::delete($old_img);
+        if(Storage::disk('root_public')->exists($old_img)) {
+            Storage::disk('root_public')->delete($old_img);
         }
         
         MultiImgAbout::destroy($id);
@@ -226,5 +233,112 @@ class AdminController extends Controller
 
         return redirect()->back()->with($notification);
 
+    }
+
+    public function all_portfolio(): View
+    {
+        $portfolios = Portfolio::latest()->get();
+        $id = Auth::user()->id;
+        $adminData = User::find($id);
+
+        return view('admin.portfolio.view_portfolios', compact(['portfolios','adminData']));
+    }
+
+    public function add_portfolio(): View
+    {
+        $id = Auth::user()->id;
+        $adminData = User::find($id);
+        return view('admin.portfolio.add_portfolio', compact('adminData'));
+    }
+    public function new_portfolio(Request $request): RedirectResponse
+    {
+        if($request->file('image')) {
+            $img = $request->file('image');
+            $name_gen=hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+
+            Image::read($img)->resize(1020,519)->save('upload/portfolio/'.$name_gen);
+            $save_url = 'upload/portfolio/'.$name_gen;
+
+            Portfolio::insert([
+                'portfolio_name' => $request->portfolio_name,
+                'portfolio_title' => $request->portfolio_title,
+                'portfolio_img' => $save_url,
+                'portfolio_desc' => $request->portfolio_desc,
+                'created_at' => Carbon::now(),
+            ]);
+        } else {
+            Portfolio::insert([
+                'portfolio_name' => $request->portfolio_name,
+                'portfolio_title' => $request->portfolio_title,
+                'portfolio_desc' => $request->portfolio_desc,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+
+        $notification = array(
+            'message' => 'Portfolio added successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.portfolio')->with($notification);
+    }
+    public function edit_portfolio($id): View
+    {
+        $uid = Auth::user()->id;
+        $adminData = User::find($uid);
+        $portfolio_dat = Portfolio::find($id);
+        return view('admin.portfolio.edit_portfolio', compact('portfolio_dat','adminData'));
+    }
+    public function update_portfolio(Request $request): RedirectResponse
+    {
+        $id = $request->id;
+        if($request->file('image')) {
+            $img = $request->file('image');
+            $name_gen = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+            Image::read($img)->resize(1020,519)->save('upload/portfolio/'.$name_gen);
+            $save_url = 'upload/portfolio/'.$name_gen;
+
+            $old_img = Portfolio::find($id)->portfolio_img;
+
+            if(Storage::disk('root_public')->exists($old_img)) {
+                Storage::disk('root_public')->delete($old_img);
+            }
+
+            Portfolio::findOrFail($request->id)->update([
+                'portfolio_name' => $request->portfolio_name,
+                'portfolio_title' => $request->portfolio_title,
+                'portfolio_img' => $save_url,
+                'portfolio_desc' => $request->portfolio_desc,
+            ]);
+        } else {
+            Portfolio::findOrFail($request->id)->update([
+                'portfolio_name' => $request->portfolio_name,
+                'portfolio_title' => $request->portfolio_title,
+                'portfolio_desc' => $request->portfolio_desc,
+            ]);
+        }
+
+        $notification = array(
+            'message' => 'Portfolio updated successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.portfolio')->with($notification);
+    }
+    public function delete_portfolio($id): RedirectResponse
+    {
+        $old_img = Portfolio::findOrFail($id)->portfolio_img;
+
+        if(Storage::disk('root_public')->exists($old_img)) {
+            Storage::disk('root_public')->delete($old_img);
+        }
+        Portfolio::destroy($id);
+
+        $notification = array(
+            'message' => 'Portfolio deleted successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 }
