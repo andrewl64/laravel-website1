@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Home\HomeSliderController;
-use App\Http\Controllers\Home\PortfolioController;
+use App\Http\Controllers\Home\BlogCatController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,6 +29,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/edit/portfolio/{id}', 'edit_portfolio')->name('edit.portfolio');
         Route::post('/update/portfolio', 'update_portfolio')->name('update.portfolio');
         Route::get('/delete/portfolio/{id}', 'delete_portfolio')->name('delete.portfolio');
+    });
+    Route::controller(BlogCatController::class)->group(function () {
+        Route::get('blog/categories', 'blog_categories')->name('blog.categories');
+        Route::post('blog/add/category', 'blog_add_cat')->name('blog.add_cat');
+        Route::get('blog/edit/category/{id}', 'blog_edit_cat')->name('blog.edit_cat');
+        Route::post('blog/update/category/', 'blog_update_cat')->name('blog.update_cat');
+        Route::get('blog/delete/category/{id}', 'blog_delete_cat')->name('blog.delete_cat');
     });
 });
 

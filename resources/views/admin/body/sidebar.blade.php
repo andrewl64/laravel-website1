@@ -16,7 +16,7 @@
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-layout-3-line"></i>
-                    <span>Homepage Setup</span>
+                    <span>Website Setup</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('home.slide') }}">Banner</a></li>
@@ -28,25 +28,10 @@
                             <li><a href="{{ route('add.portfolio') }}">Add Portfolio</a></li>
                         </ul>
                     </li>
-                        
-                </ul>
-            </li>
-
-            <li>
-                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                    <i class="ri-layout-3-line"></i>
-                    <span>Layouts</span>
-                </a>
-                <ul class="sub-menu" aria-expanded="true">
                     <li>
-                        <a href="javascript: void(0);" class="has-arrow">Vertical</a>
-                        <ul class="sub-menu" aria-expanded="true">
-                            <li><a href="layouts-dark-sidebar.html">Dark Sidebar</a></li>
-                            <li><a href="layouts-compact-sidebar.html">Compact Sidebar</a></li>
-                            <li><a href="layouts-icon-sidebar.html">Icon Sidebar</a></li>
-                            <li><a href="layouts-boxed.html">Boxed Layout</a></li>
-                            <li><a href="layouts-preloader.html">Preloader</a></li>
-                            <li><a href="layouts-colored-sidebar.html">Colored Sidebar</a></li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><span>Blog</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('blog.categories') }}">Categories</a></li>
                         </ul>
                     </li>
                 </ul>

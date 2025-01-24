@@ -45,6 +45,8 @@ class FrontController extends Controller
     }
     public function load_blogs(): View
     {
-        return view('frontend.pages.blog');
+        $portfolios_dat= Portfolio::all();
+        $multi_img_dat = MultiImgAbout::all();
+        return view('frontend.pages.blog', compact('portfolios_dat','multi_img_dat'));
     }
 }

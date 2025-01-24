@@ -1,4 +1,9 @@
 @extends('frontend.main_master')
+
+@section('meta_title')
+Portfolios
+@endsection
+
 @section('main')
 
             <!-- breadcrumb-area -->

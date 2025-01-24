@@ -1,5 +1,9 @@
 @extends('frontend.main_master')
 
+@section('meta_title')
+Home
+@endsection
+
 @section('main')
 
 @include('frontend.home.banner')

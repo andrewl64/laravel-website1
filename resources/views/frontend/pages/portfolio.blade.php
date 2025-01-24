@@ -1,4 +1,9 @@
 @extends('frontend.main_master')
+
+@section('meta_title')
+{{ $portfolio_dat->portfolio_title }}
+@endsection
+
 @section('main')
 <!-- breadcrumb-area -->
 <section class="breadcrumb__wrap">
