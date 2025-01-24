@@ -264,6 +264,9 @@ class AdminController extends Controller
                 'portfolio_title' => $request->portfolio_title,
                 'portfolio_img' => $save_url,
                 'portfolio_desc' => $request->portfolio_desc,
+                'portfolio_short_title' => $request->portfolio_short_title,
+                'portfolio_short_desc' => $request->portfolio_short_desc,
+                'portfolio_short_list' => $request->portfolio_list,
                 'created_at' => Carbon::now(),
             ]);
         } else {
@@ -271,6 +274,9 @@ class AdminController extends Controller
                 'portfolio_name' => $request->portfolio_name,
                 'portfolio_title' => $request->portfolio_title,
                 'portfolio_desc' => $request->portfolio_desc,
+                'portfolio_short_title' => $request->portfolio_short_title,
+                'portfolio_short_desc' => $request->portfolio_short_desc,
+                'portfolio_short_list' => $request->portfolio_list,
                 'created_at' => Carbon::now(),
             ]);
         }
@@ -309,12 +315,18 @@ class AdminController extends Controller
                 'portfolio_title' => $request->portfolio_title,
                 'portfolio_img' => $save_url,
                 'portfolio_desc' => $request->portfolio_desc,
+                'portfolio_short_title' => $request->portfolio_short_title,
+                'portfolio_short_desc' => $request->portfolio_short_desc,
+                'portfolio_list' => $request->portfolio_list,
             ]);
         } else {
             Portfolio::findOrFail($request->id)->update([
                 'portfolio_name' => $request->portfolio_name,
                 'portfolio_title' => $request->portfolio_title,
                 'portfolio_desc' => $request->portfolio_desc,
+                'portfolio_short_title' => $request->portfolio_short_title,
+                'portfolio_short_desc' => $request->portfolio_short_desc,
+                'portfolio_list' => $request->portfolio_list,
             ]);
         }
 

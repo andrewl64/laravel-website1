@@ -16,6 +16,9 @@
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Name</th>
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Title</th>
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Description</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Short Title</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Short Description</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Content List</th>
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Actions</th>
                                 </thead>
                                 <tbody>
@@ -26,6 +29,14 @@
                                             <td>{{ $portfolio->portfolio_name }}</td>
                                             <td>{{ $portfolio->portfolio_title }}</td>
                                             <td>{{ $portfolio->portfolio_desc }}</td>
+                                            <td>{{ $portfolio->portfolio_short_title }}</td>
+                                            <td>{{ $portfolio->portfolio_short_desc }}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach(explode('**', $portfolio->portfolio_list) as $list)
+                                                        <li>{{ $list }}</li>
+                                                    @endforeach
+                                                </ul></td>
                                             <td>
                                                 <a class="btn btn-info" href="{{ route('edit.portfolio', $portfolio->id) }}">Edit</a>
                                                 <a class="btn btn-danger delete_img" href="{{ route('delete.portfolio', $portfolio->id) }}">Delete</a>

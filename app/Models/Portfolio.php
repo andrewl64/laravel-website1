@@ -11,5 +11,10 @@ class Portfolio extends Model
         'portfolio_title',
         'portfolio_img',
         'portfolio_desc',
+        'portfolio_short_title',
+        'portfolio_short_desc',
+        'portfolio_list',
+        'portfolio_img2',
+        'portfolio_img3',
     ];
 }

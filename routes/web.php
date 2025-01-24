@@ -40,6 +40,9 @@ Route::controller(HomeSliderController::class)->group(function () {
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'load_home')->name('load.home');
     Route::get('/about', 'load_about')->name('load.about');
+    Route::get('/portfolios', 'load_portfolios')->name('load.portfolios');
+    Route::get('/portfolio/{id}', 'load_portfolio')->name('load.portfolio');
+    Route::get('/blog', 'load_blogs')->name('load.blogs');
 });
 
 Route::middleware('auth')->group(function () {

@@ -13,11 +13,21 @@
                             </div>
                             <div class="navbar__wrap main__menu d-none d-xl-flex">
                                 <ul class="navigation">
-                                    <li class="{{ Route::currentRouteName()==='load.home'? 'active':''}}"><a href="{{ route('load.home') }}">Home</a></li>
-                                    <li class="{{ Route::currentRouteName()==='load.about'? 'active':''}}"><a href="{{ route('load.about') }}">About</a></li>
+                                    <li class="active"><a href="{{ route('load.home') }}">Home</a></li>
+                                    <li><a href="{{ route('load.about') }}">About</a></li>
                                     <li><a href="services-details.html">Services</a></li>
-                                    <li class="{{ Route::currentRouteName()==='load.portfolios'? 'active':''}}"><a href="{{ route('load.portfolios') }}">Portfolios</a></li>
-                                    <li class="{{ Route::currentRouteName()==='load.blogs'? 'active':''}}"><a href="{{ route('load.blogs') }}">Blog</a></li>
+                                    <li class="menu-item-has-children"><a href="#">Portfolio</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="portfolio.html">Portfolio</a></li>
+                                            <li><a href="portfolio-details.html">Portfolio Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><a href="#">Our Blog</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="blog.html">Our News</a></li>
+                                            <li><a href="blog-details.html">News Details</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a href="contact.html">contact me</a></li>
                                 </ul>
                             </div>
