@@ -14,4 +14,8 @@ class Blog extends Model
         'desc',
         'short_desc',
     ];
+
+    public function category() {
+        return $this->belongsTo(BlogCategory::class, 'cat_id', 'id');
+    }
 }

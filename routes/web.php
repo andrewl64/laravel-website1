@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Home\HomeSliderController;
 use App\Http\Controllers\Home\BlogCatController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,6 +37,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('blog/edit/category/{id}', 'blog_edit_cat')->name('blog.edit_cat');
         Route::post('blog/update/category/', 'blog_update_cat')->name('blog.update_cat');
         Route::get('blog/delete/category/{id}', 'blog_delete_cat')->name('blog.delete_cat');
+    });
+    Route::controller(BlogController::class)->group(function() {
+        Route::get('blog/all','blog_all')->name('blog.all');
+        Route::post('blog/add','blog_add')->name('blog.add');
+        Route::get('blog/edit/{id}','blog_edit')->name('blog.edit');
+        Route::post('blog/update','blog_update')->name('blog.update');
+        Route::get('blog/delete/{id}','blog_delete')->name('blog.delete');
     });
 });
 
