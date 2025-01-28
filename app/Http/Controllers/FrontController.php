@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Laravel\Facades\Image;
+
 use App\Models\HomeSlider;
 use App\Models\About;
 use App\Models\MultiImgAbout;
 use App\Models\Portfolio;
+use App\Models\Blog;
 
 class FrontController extends Controller
 {
@@ -19,8 +21,9 @@ class FrontController extends Controller
         $about_dat = About::find(1);
         $multi_img_dat = MultiImgAbout::all();
         $portfolio_dat = Portfolio::all();
+        $blog_dat = Blog::latest()->limit(3)->get();
 
-        return view('frontend.index', compact(['banner_dat','about_dat','multi_img_dat','portfolio_dat']));
+        return view('frontend.index', compact(['banner_dat','about_dat','multi_img_dat','portfolio_dat','blog_dat']));
     }
     public function load_about(): View
     {
@@ -45,8 +48,14 @@ class FrontController extends Controller
     }
     public function load_blogs(): View
     {
-        $portfolios_dat= Portfolio::all();
+        $blog_dat= Blog::all();
         $multi_img_dat = MultiImgAbout::all();
-        return view('frontend.pages.blog', compact('portfolios_dat','multi_img_dat'));
+        return view('frontend.pages.blog', compact('blog_dat','multi_img_dat'));
+    }
+    public function load_blog($id): View
+    {
+        $blog_dat= Blog::find($id);
+        $multi_img_dat = MultiImgAbout::all();
+        return view('frontend.pages.post', compact('blog_dat','multi_img_dat') );
     }
 }

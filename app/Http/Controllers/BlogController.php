@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Carbon;
 
 use App\Models\User;
 use App\Models\BlogCategory;
@@ -41,6 +42,7 @@ class BlogController extends Controller
                 'tags' => $request->blog_tags,
                 'desc' => $request->blog_desc,
                 'short_desc' => $request->blog_short_desc,
+                'created_at' => Carbon::now(),
             ]);
 
         } else {
@@ -50,6 +52,7 @@ class BlogController extends Controller
                 'tags' => $request->blog_tags,
                 'desc' => $request->blog_desc,
                 'short_desc' => $request->blog_short_desc,
+                'created_at' => Carbon::now(),
             ]);
         }
         $notification = array(

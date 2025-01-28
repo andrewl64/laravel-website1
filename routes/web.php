@@ -31,6 +31,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update/portfolio', 'update_portfolio')->name('update.portfolio');
         Route::get('/delete/portfolio/{id}', 'delete_portfolio')->name('delete.portfolio');
     });
+    Route::controller(HomeSliderController::class)->group(function () {
+        Route::get('/home/slider','home_slider')->name('home.slide');
+        Route::post('/update/slider','update_slider')->name('update.slider');
+    });
     Route::controller(BlogCatController::class)->group(function () {
         Route::get('blog/categories', 'blog_categories')->name('blog.categories');
         Route::post('blog/add/category', 'blog_add_cat')->name('blog.add_cat');
@@ -47,17 +51,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-Route::controller(HomeSliderController::class)->group(function () {
-    Route::get('/home/slider','home_slider')->name('home.slide');
-    Route::post('/update/slider','update_slider')->name('update.slider');
-});
-
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'load_home')->name('load.home');
     Route::get('/about', 'load_about')->name('load.about');
     Route::get('/portfolios', 'load_portfolios')->name('load.portfolios');
     Route::get('/portfolio/{id}', 'load_portfolio')->name('load.portfolio');
     Route::get('/blog', 'load_blogs')->name('load.blogs');
+    Route::get('/blog/{id}', 'load_blog')->name('load.blog');
 });
 
 Route::middleware('auth')->group(function () {
