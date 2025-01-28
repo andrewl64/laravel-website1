@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Carbon;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;

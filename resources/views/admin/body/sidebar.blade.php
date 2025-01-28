@@ -35,6 +35,7 @@
                             <li><a href="{{ route('blog.categories') }}">Categories</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{ route('edit.footer') }}">Footer</a></li>
                 </ul>
             </li>
 

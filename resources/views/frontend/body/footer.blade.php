@@ -6,24 +6,22 @@
                 <div class="footer__widget">
                     <div class="fw-title">
                         <h5 class="sub-title">Contact us</h5>
-                        <h4 class="title">+81383 766 284</h4>
+                        <h4 class="title">{{ $footer_dat->phone }}</h4>
                     </div>
                     <div class="footer__widget__text">
-                        <p>There are many variations of passages of lorem ipsum
-                        available but the majority have suffered alteration
-                        in some form is also here.</p>
+                        <p>{{ $footer_dat->desc }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="footer__widget">
                     <div class="fw-title">
-                        <h5 class="sub-title">my address</h5>
-                        <h4 class="title">AUSTRALIA</h4>
+                        <h5 class="sub-title">find us</h5>
+                        <h4 class="title">Address</h4>
                     </div>
                     <div class="footer__widget__address">
-                        <p>Level 13, 2 Elizabeth Steereyt set <br> Melbourne, Victoria 3000</p>
-                        <a href="mailto:noreply@envato.com" class="mail">noreply@envato.com</a>
+                        <p>{{ $footer_dat->address }}</p>
+                        <a href="mailto:{{ $footer_dat->email }}" class="mail">{{ $footer_dat->email }}</a>
                     </div>
                 </div>
             </div>
@@ -50,7 +48,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="copyright__text text-center">
-                        <p>Copyright @ Theme_Pure 2021 All right Reserved</p>
+                        <p>{{ $footer_dat->copyright }}</p>
                     </div>
                 </div>
             </div>

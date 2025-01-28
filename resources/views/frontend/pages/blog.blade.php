@@ -81,7 +81,7 @@ Blog
                                 <div class="widget">
                                     <h4 class="widget-title">Recent Blog</h4>
                                     <ul class="rc__post">
-                                        @foreach($blog_dat as $blog)
+                                        @foreach($recent_blog_dat as $blog)
                                         <li class="rc__post__item">
                                             <div class="rc__post__thumb">
                                                 <a href="blog-details.html"><img src="{{ $blog->img }}" alt=""></a>

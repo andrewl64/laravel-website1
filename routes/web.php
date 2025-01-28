@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Home\HomeSliderController;
 use App\Http\Controllers\Home\BlogCatController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('blog/edit/{id}','blog_edit')->name('blog.edit');
         Route::post('blog/update','blog_update')->name('blog.update');
         Route::get('blog/delete/{id}','blog_delete')->name('blog.delete');
+    });
+    Route::controller(FooterController::class)->group(function () {
+        Route::get('edit/footer', 'edit_footer')->name('edit.footer');
+        Route::post('update/footer', 'update_footer')->name('update.footer');
     });
 });
 
