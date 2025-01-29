@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="row mb-3">
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <table id="datatable" class="table table-bordered dt-responsive dataTable no-footer dtr-inline" style="border-collapse: collapse; border-spacing: 0px; width: 100%;" role="grid" aria-describedby="datatable_info">
                                 <thead>
                                 <tr role="row">
@@ -17,6 +17,7 @@
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Subject</th>
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Budget</th>
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Message</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Received on</th>
                                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1">Actions</th>
                                 </thead>
                                 <tbody>
@@ -28,6 +29,7 @@
                                             <td>{{ $contact->subject }}</td>
                                             <td>{{ $contact->budget }}</td>
                                             <td>{{ $contact->msg }}</td>
+                                            <td>{{ Carbon\Carbon::parse($contact->created_at)->diffForHumans() }}</td>
                                             <td>
                                                 <a class="btn btn-danger delete_img" href="{{ route('delete.contact', $contact->id) }}">Delete</a>
                                             </td>
