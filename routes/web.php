@@ -69,6 +69,8 @@ Route::controller(FrontController::class)->group(function () {
 
 Route::controller(ContactController::class)->group(function () {
     Route::post('contact/submit', 'contact_submit')->name('contact.submit');
+    Route::get('contact/submissions', 'contact_submissions')->name('contact.submissions');
+    Route::get('contact/delete/{id}', 'delete_contact')->name('delete.contact');
 });
 
 Route::middleware('auth')->group(function () {

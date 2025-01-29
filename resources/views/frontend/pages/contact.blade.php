@@ -6,6 +6,10 @@ Contact
 
 @section('main')
 
+@push('custom-styles')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+@endpush
+
 <!-- breadcrumb-area -->
 <section class="breadcrumb__wrap">
     <div class="container custom-container">
@@ -43,7 +47,18 @@ Contact
 <!-- contact-area -->
 <div class="contact-area">
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Oh no!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ route('contact.submit') }}" class="contact__form">
+            @csrf
             <div class="row">
                 <div class="col-md-6">
                     <input type="text" name="name" placeholder="Full Name*" required>
@@ -64,5 +79,31 @@ Contact
     </div>
 </div>
 <!-- contact-area-end -->
+
+@push('custom-scripts')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
+        switch(type){
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break; 
+        }
+        @endif
+    </script>
+@endpush
 
 @endsection

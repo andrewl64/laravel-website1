@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
 
         @vite(['{{ asset("frontend/assets/css/style.css") }}', '{{ asset("frontend/assets/js/main.js") }}'])
+        @stack("custom-styles")
     </head>
     <body>
 
@@ -58,5 +59,7 @@
         <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
         <script src="{{ asset('frontend/assets/js/plugins.js') }}"></script>
         <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
+        @stack("custom-scripts")
     </body>
 </html>

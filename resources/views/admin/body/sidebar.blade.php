@@ -42,6 +42,13 @@
             <li class="menu-title">Pages</li>
 
             <li>
+                <a href="{{ route('contact.submissions') }}" class="waves-effect">
+                    <i class="ri-dashboard-line"></i>
+                    <span>Contact Form Submissions</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-account-circle-line"></i>
                     <span>Authentication</span>
