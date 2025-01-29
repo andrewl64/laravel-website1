@@ -67,4 +67,11 @@ class FrontController extends Controller
         $footer_dat = Footer::find(1);
         return view('frontend.pages.post', compact(['blogs_dat','blog_dat','multi_img_dat','footer_dat']) );
     }
+    public function load_contact(): View
+    {
+        $multi_img_dat = MultiImgAbout::all();
+        $footer_dat = Footer::find(1);
+
+        return view('frontend.pages.contact', compact(['multi_img_dat','footer_dat']));
+    }
 }

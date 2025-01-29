@@ -18,11 +18,11 @@
                                     <li><a href="services-details.html">Services</a></li>
                                     <li class="{{ Route::currentRouteName()==='load.portfolios'? 'active':''}}"><a href="{{ route('load.portfolios') }}">Portfolios</a></li>
                                     <li class="{{ Route::currentRouteName()==='load.blogs'? 'active':''}}"><a href="{{ route('load.blogs') }}">Blog</a></li>
-                                    <li><a href="contact.html">contact me</a></li>
+                                    <li class="{{ Route::currentRouteName()==='load.contact'? 'active':''}}"><a href="{{ route('load.contact') }}">Contact</a></li>
                                 </ul>
                             </div>
                             <div class="header__btn d-none d-md-block">
-                                <a href="contact.html" class="btn">Contact me</a>
+                                <a href="{{ route('load.contact') }}" class="btn">Contact Us</a>
                             </div>
                         </nav>
                     </div>
